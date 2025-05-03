@@ -1,0 +1,48 @@
+PROYECTOESCUELA/
+├── backend/
+│   ├── node_modules/               # Módulos de Node.js
+│   ├── src/
+│   │   ├── models/
+│   │   │   ├── Actividad.ts
+│   │   │   ├── Alumno.ts
+│   │   │   ├── Curso.ts
+│   │   │   ├── Leccion.ts
+│   │   │   ├── Profesor.ts
+│   │   │   ├── ProgresoAlumno.ts
+│   │   │   ├── Recompensa.ts
+│   │   │   ├── RespuestaIA.ts
+│   │   │   └── Usuario.ts
+│   │   ├── middlewares/
+│   │   │   ├── auth.middleware.ts      # Middleware de autenticación
+│   │   │   └── errorHandler.ts
+│   │   ├── lib/                     # Configuración Supabase
+│   │   │   └── supabase.ts
+│   │   ├── controllers/             # Lógica de endpoints
+│   │   │   ├── actividades.controller.ts
+│   │   │   ├── alumnos.controller.ts
+│   │   │   ├── cursos.controller.ts
+│   │   │   ├── lecciones.controller.ts
+│   │   │   ├── profesores.controller.ts
+│   │   │   ├── progreso.controller.ts
+│   │   │   ├── recompensas.controller.ts
+│   │   │   ├── respuestasIA.controller.ts
+│   │   │   └── auth.controller.ts
+│   │   ├── types/
+│   │   │   └── express.d.ts
+│   │   ├── routes/                  # Rutas
+│   │   │   ├── actividades.routes.ts
+│   │   │   ├── alumnos.routes.ts
+│   │   │   ├── cursos.routes.ts
+│   │   │   ├── lecciones.routes.ts
+│   │   │   ├── profesores.routes.ts
+│   │   │   ├── progreso.routes.ts
+│   │   │   ├── recompensas.routes.ts
+│   │   │   ├── respuestasIA.routes.ts
+│   │   │   └── auth.routes.ts
+│   │   ├── app.ts                   # Config Express
+│   │   └── server.ts                # Inicia el servidor
+│   ├── .env
+│   ├── package.json
+│   └── tsconfig.json
+└── frontend/
+    └──...
