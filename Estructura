@@ -1,0 +1,46 @@
+PROYECTOESCUELA/
+├── node_modules/                  # Dependencias del proyecto
+├── public/                        # Archivos públicos
+│   ├── favicon.ico
+│   ├── google-icon.svg
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   ├── robots.txt
+├── src/
+│   ├── Components/
+│   │   ├── Auth/                  # Componentes de autenticación
+│   │   │   ├── AuthPage.css
+│   │   │   ├── AuthPage.tsx
+│   │   │   ├── LoginButton.css
+│   │   │   ├── LoginButton.tsx
+│   │   │   ├── RegisterForm.css
+│   │   │   └── RegisterForm.tsx
+│   │   ├── Dashboard/             # Componentes del dashboard
+│   │   │   ├── Dashboard.css
+│   │   │   ├── StudentDashboard.css
+│   │   │   ├── StudentDashboard.tsx
+│   │   │   ├── TeacherDashboard.css
+│   │   │   └── TeacherDashboard.tsx
+│   │   ├── Home.tsx              # Componente de inicio
+│   │   ├── Home.css
+│   │   ├── LogoutButton.css
+│   │   └── LogoutButton.tsx
+│   ├── Context/                   # Contextos de la aplicación
+│   │   └── UserContext.tsx        # Contexto de usuario
+│   ├── firebase/                  # Configuración de Firebase
+│   │   └── config.ts
+│   ├── app.css                    # Estilos globales
+│   ├── App.test.txt
+│   ├── app.tsx                    # Componente principal de la aplicación
+│   ├── index.css                  # Estilos de entrada
+│   ├── logo.svg
+│   ├── react-app-env.d.ts         # Tipos de React
+│   ├── reportWebVitals.ts         # Métricas de rendimiento
+│   └── setupTests.ts              # Configuración de pruebas
+├── .gitignore                     # Archivos ignorados por Git
+├── package-lock.json              # Versiones exactas de dependencias
+├── package.json                   # Configuración del proyecto y dependencias
+├── README.md                      # Documentación del proyecto
+└── tsconfig.json                  # Configuración de TypeScript

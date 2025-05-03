@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserProvider, useUser } from './context/UserContext';
-import TeacherDashboard from './components/TeacherDashboard';
-import StudentDashboard from './components/StudentDashboard';
+import TeacherDashboard from './components/Dashboard/TeacherDashboard';
+import StudentDashboard from './components/Dashboard/StudentDashboard';
 import AuthPage from './components/Auth/AuthPage';
 import './App.css';
 

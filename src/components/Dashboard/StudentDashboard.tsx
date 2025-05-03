@@ -1,7 +1,7 @@
 import React from 'react';
-import { useUser } from '../context/UserContext';
+import { useUser } from '../../context/UserContext';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { auth } from '../../firebase/config';
 import './StudentDashboard.css';
 
 const StudentDashboard: React.FC = () => {

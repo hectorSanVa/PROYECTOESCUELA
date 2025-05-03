@@ -68,7 +68,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
       // como el rol (docente/alumno) y otros datos
 
       onClose();
-    } catch (error: any) {
+    } catch (error) {
+      if (typeof error === 'object' && error !== null && 'code' in error) {
       switch (error.code) {
         case 'auth/email-already-in-use':
           setError('Este correo ya está registrado');
@@ -79,6 +80,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
         default:
           setError('Error al crear la cuenta');
       }
+      }      
     } finally {
       setLoading(false);
     }
