@@ -19,7 +19,12 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // Mostrar error si existe
+  // Si no hay usuario, mostrar página de autenticación
+  if (!user) {
+    return <AuthPage />;
+  }
+
+  // Si hay error pero hay usuario, mostrar mensaje de error pero permitir reintentar
   if (error) {
     return (
       <div className="error-screen">
@@ -33,11 +38,6 @@ const AppContent: React.FC = () => {
         </button>
       </div>
     );
-  }
-
-  // Si no hay usuario, mostrar página de autenticación
-  if (!user) {
-    return <AuthPage />;
   }
 
   // Si hay usuario pero no hay rol, mostrar error

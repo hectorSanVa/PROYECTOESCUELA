@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebase/config';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { supabase } from '../../supabaseClient';
 import './AuthPage.css';
 
 const AuthPage: React.FC = () => {
@@ -8,32 +7,16 @@ const AuthPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const signInWithGoogle = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({
-        prompt: 'select_account'
-      });
-
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error('Error de autenticación:', error);
-      if (error instanceof Error) {
-        if (error.message.includes('popup-closed-by-user')) {
-          setError('Se cerró la ventana de inicio de sesión');
-        } else if (error.message.includes('network')) {
-          setError('Error de conexión. Verifica tu internet');
-        } else if (error.message.includes('unauthorized-domain')) {
-          setError('Este dominio no está autorizado para iniciar sesión');
-        } else {
-          setError('Error al iniciar sesión. Intenta de nuevo');
-        }
-      }
-    } finally {
-      setLoading(false);
+    setLoading(true);
+    setError(null);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) {
+      setError('Error al iniciar sesión con Google');
+      console.error(error);
     }
+    setLoading(false);
   };
 
   return (

@@ -1,0 +1,84 @@
+.docente-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #18122B;
+  color: #fff;
+}
+
+.sidebar-docente {
+  width: 220px;
+  background: #393053;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  box-shadow: 2px 0 8px #0002;
+}
+.sidebar-header {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.sidebar-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 14px 32px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+.sidebar-btn.active, .sidebar-btn:hover {
+  background: #635985;
+  border-left: 4px solid #A084DC;
+}
+.sidebar-icon {
+  margin-right: 12px;
+  font-size: 1.3em;
+}
+.main-docente {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.topbar-docente {
+  background: #393053;
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px #0002;
+}
+.topbar-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.logout-btn {
+  background: #A084DC;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: #8B6FC5;
+}
+.main-content-docente {
+  flex: 1;
+  padding: 32px 40px;
+  background: #232046;
+  border-radius: 18px 0 0 0;
+  box-shadow: 0 4px 24px #0002;
+  margin: 24px 0 24px 0;
+  overflow-y: auto;
+} 

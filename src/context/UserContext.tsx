@@ -1,10 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth, db } from '../firebase/config';
-import { User } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { supabase } from '../supabaseClient';
 
 interface UserContextType {
-  user: User | null;
+  user: any;
   loading: boolean;
   role: string | null;
   error: string | null;
@@ -20,7 +18,7 @@ const UserContext = createContext<UserContextType>({
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,52 +29,33 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      try {
-        if (!user) {
-          setUser(null);
-          setRole(null);
-          setLoading(false);
-          return;
-        }
-
-        setUser(user);
-        // Asignar rol inmediatamente basado en el correo
-        const initialRole = getRoleFromEmail(user.email);
-        setRole(initialRole);
+    const getSession = async () => {
+      setLoading(true);
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        setUser(null);
+        setRole(null);
+        setError('No autenticado');
         setLoading(false);
-
-        // Verificar/actualizar rol en Firestore en segundo plano
-        try {
-          const userRef = doc(db, 'users', user.uid);
-          const userDoc = await getDoc(userRef);
-
-          if (!userDoc.exists()) {
-            await setDoc(userRef, {
-              email: user.email,
-              displayName: user.displayName,
-              role: initialRole,
-              createdAt: new Date(),
-            });
-          } else {
-            const userData = userDoc.data();
-            // Solo actualizar el rol si es diferente
-            if (userData.role !== initialRole) {
-              setRole(userData.role);
-            }
-          }
-        } catch (firestoreError) {
-          console.error('Error con Firestore:', firestoreError);
-          // No mostrar error al usuario ya que tenemos un rol asignado
-        }
-      } catch (err) {
-        console.error('Error en autenticación:', err);
-        setError('Error al verificar la sesión');
-        setLoading(false);
+        return;
       }
+      if (data?.user) {
+        setUser(data.user);
+        setRole(getRoleFromEmail(data.user.email ?? null));
+      } else {
+        setUser(null);
+        setRole(null);
+      }
+      setLoading(false);
+    };
+    getSession();
+    // Suscribirse a cambios de sesión
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      getSession();
     });
-
-    return () => unsubscribe();
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
   }, []);
 
   return (

@@ -1,18 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser } from '../../context/UserContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/config';
+import { getCursos } from '../../services/cursos';
+import { getActividades } from '../../services/actividades';
 import './StudentDashboard.css';
+import { supabase } from '../../supabaseClient';
 
 const StudentDashboard: React.FC = () => {
   const { user } = useUser();
+  const [cursos, setCursos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [actividades, setActividades] = useState<any[]>([]);
+  const [loadingActividades, setLoadingActividades] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    cargarCursos();
+    cargarActividades();
+  }, []);
+
+  const cargarCursos = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await getCursos();
+      setCursos(res.data);
+    } catch (e) {
+      setCursos([]);
+      setError('No se pudieron cargar los cursos');
+    }
+    setLoading(false);
+  };
+
+  const cargarActividades = async () => {
+    setLoadingActividades(true);
+    try {
+      const res = await getActividades();
+      setActividades(res.data);
+    } catch (e) {
+      setActividades([]);
+    }
+    setLoadingActividades(false);
+  };
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
+    await supabase.auth.signOut();
+    window.location.href = '/login';
   };
 
   return (
@@ -30,26 +62,38 @@ const StudentDashboard: React.FC = () => {
         <div className="dashboard-section">
           <h2>Mis Cursos</h2>
           <div className="dashboard-actions">
-            <button className="action-button primary">Ver cursos disponibles</button>
-            <button className="action-button">Continuar aprendizaje</button>
+            {loading ? (
+              <div>Cargando cursos...</div>
+            ) : error ? (
+              <div className="error-message">{error}</div>
+            ) : (
+              <ul>
+                {cursos.map((curso: any) => (
+                  <li key={curso.id} className="curso-item">
+                    {curso.nombre}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
         <div className="dashboard-section">
           <h2>Tareas y Ejercicios</h2>
           <div className="task-list">
-            <div className="task-item new">
-              <div className="task-status">Nuevo</div>
-              <h3>Ejercicios de Álgebra</h3>
-              <p>Fecha límite: 15 de Mayo</p>
-              <button className="action-button">Ver tarea</button>
-            </div>
-            <div className="task-item feedback">
-              <div className="task-status">Retroalimentación</div>
-              <h3>Geometría Básica</h3>
-              <p>Calificado por EduBot</p>
-              <button className="action-button">Ver resultados</button>
-            </div>
+            {loadingActividades ? (
+              <div>Cargando tareas...</div>
+            ) : actividades.length === 0 ? (
+              <div>No hay tareas disponibles.</div>
+            ) : (
+              actividades.map((actividad: any) => (
+                <div className="task-item" key={actividad.id}>
+                  <h3>{actividad.nombre}</h3>
+                  <p>{actividad.descripcion}</p>
+                  <button className="action-button">Ver tarea</button>
+                </div>
+              ))
+            )}
           </div>
           <div className="dashboard-actions">
             <button className="action-button">Ver todas las tareas</button>
