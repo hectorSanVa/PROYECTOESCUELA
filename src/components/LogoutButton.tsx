@@ -1,12 +1,14 @@
 import React from 'react';
-import { auth } from '../firebase/config';
-import { signOut } from 'firebase/auth';
+import { supabase } from '../supabaseClient';
 import './LogoutButton.css';
 
 const LogoutButton: React.FC = () => {
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      // Redirige a la página de login después de cerrar sesión
+      window.location.href = '/login';
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
@@ -20,4 +22,4 @@ const LogoutButton: React.FC = () => {
   );
 };
 
-export default LogoutButton; 
+export default LogoutButton;

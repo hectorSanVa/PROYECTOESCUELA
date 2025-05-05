@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebase/config';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { supabase } from '../../supabaseClient';
 import './RegisterForm.css';
 
 interface RegisterFormProps {
   onClose: () => void;
 }
-
 const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -39,10 +37,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
       setError('La contraseña debe tener al menos 6 caracteres');
       return false;
     }
-    if (formData.role === 'docente' && !formData.email.endsWith('@edu.com')) {
-      setError('Los docentes deben usar un correo @edu.com');
-      return false;
-    }
     return true;
   };
 
@@ -54,19 +48,34 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
 
     try {
       setLoading(true);
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-
-      await updateProfile(userCredential.user, {
-        displayName: formData.fullName
+      
+      // Registrar usuario en Supabase
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.fullName,
+            role: formData.role
+          }
+        }
       });
 
-      // Aquí podrías guardar información adicional del usuario en Firestore
-      // como el rol (docente/alumno) y otros datos
+      if (error) throw error;
 
+      // Insertar datos adicionales en la tabla de usuarios
+      if (data.user) {
+        const { error: profileError } = await supabase
+          .from('usuarios')
+          .insert({
+            id: data.user.id,
+            email: formData.email,
+            rol: formData.role,
+            // otros campos según tu esquema
+          });
+
+        if (profileError) throw profileError;
+      }
       onClose();
     } catch (error) {
       if (typeof error === 'object' && error !== null && 'code' in error) {

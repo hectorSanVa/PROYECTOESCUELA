@@ -6,7 +6,8 @@ import AuthPage from './components/Auth/AuthPage';
 import './App.css';
 
 const AppContent: React.FC = () => {
-  const { user, loading, role, error } = useUser();
+  const { user, loading, error } = useUser();
+  const role = user?.rol;
 
   // Mostrar pantalla de carga
   if (loading) {
@@ -57,7 +58,7 @@ const AppContent: React.FC = () => {
   }
 
   // Mostrar el dashboard correspondiente según el rol
-  return role === 'docente' ? <TeacherDashboard /> : <StudentDashboard />;
+  return role === 'profesor' ? <TeacherDashboard /> : <StudentDashboard />;
 };
 
 const App: React.FC = () => {

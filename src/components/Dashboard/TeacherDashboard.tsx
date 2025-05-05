@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../../context/UserContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/config';
 import { getCursos, createCurso, deleteCurso } from '../../services/cursos';
 import './TeacherDashboard.css';
 import { supabase } from '../../supabaseClient';

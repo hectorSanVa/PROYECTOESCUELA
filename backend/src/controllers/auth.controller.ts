@@ -102,20 +102,61 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+// src/controllers/auth.controller.ts
 export const getProfile = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.id;
 
-    const { data, error } = await supabase
+    // Obtener datos básicos del usuario
+    const { data: usuario, error: userError } = await supabase
       .from('usuarios')
-      .select('id, email, rol, avatar_url, fecha_registro')
+      .select('id, email, rol, avatar_url')
       .eq('id', userId)
-      .single()
-      .returns<Pick<Usuario, 'id' | 'email' | 'rol' | 'avatar_url' | 'fecha_registro'>>();
+      .single();
 
-    if (error) throw error;
+    if (userError) throw userError;
 
-    res.json(data);
+    // Obtener datos específicos según el rol
+    let profileData: any = { 
+      id: usuario.id,
+      email: usuario.email,
+      rol: usuario.rol,
+      avatar_url: usuario.avatar_url
+    };
+
+    if (usuario.rol === 'profesor') {
+      const { data: profesor, error: profError } = await supabase
+        .from('profesores')
+        .select('nombre, especialidad')
+        .eq('id', userId)
+        .single();
+
+      if (!profError) {
+        profileData = { 
+          ...profileData,
+          nombre: profesor.nombre,
+          especialidad: profesor.especialidad
+        };
+      }
+    } else if (usuario.rol === 'alumno') {
+      const { data: alumno, error: alumnoError } = await supabase
+        .from('alumnos')
+        .select('nombre, nivel_educativo, puntos_acumulados')
+        .eq('id', userId)
+        .single();
+
+      if (!alumnoError) {
+        profileData = { 
+          ...profileData,
+          nombre: alumno.nombre,
+          nivel_educativo: alumno.nivel_educativo,
+          puntos_acumulados: alumno.puntos_acumulados
+        };
+      }
+    }
+
+    res.json(profileData);
+
   } catch (error: unknown) {
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });

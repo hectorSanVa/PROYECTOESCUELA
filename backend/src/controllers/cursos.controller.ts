@@ -10,14 +10,29 @@ export const getAllCursos = async (req: Request, res: Response) => {
       .select('*, profesor:profesores(nombre, especialidad)');
 
     if (error) throw error;
-    res.json(data);
+    
+    // Asegura devolver un objeto con propiedad data
+    res.json({ 
+      success: true,
+      data: data || [] // Siempre devuelve un array
+    });
+    
   } catch (error: unknown) {
-  if (error instanceof Error) {
-    res.status(500).json({ error: error.message });
-  } else {
-    res.status(500).json({ error: 'An unknown error occurred' });
+    if (error instanceof Error) {
+      res.status(500).json({ 
+        success: false,
+        error: error.message,
+        data: [] 
+      });
+    } else {
+      res.status(500).json({ 
+        success: false,
+        error: 'Error desconocido',
+        data: [] 
+      });
+    }
   }
-}};
+};
 
 export const getCursoById = async (req: Request, res: Response) => {
   try {

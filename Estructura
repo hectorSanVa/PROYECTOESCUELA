@@ -36,8 +36,6 @@ PROYECTOESCUELA/
 │   │   └── api.ts                 # Configuración de la API 
 │   ├── Context/                   # Contextos de la aplicación
 │   │   └── UserContext.tsx        # Contexto de usuario
-│   ├── firebase/                  # Configuración de Firebase
-│   │   └── config.ts
 │   ├── Services/                  # Servicios de la aplicación
 │   │   ├── actividades.ts         # Servicio de actividades
 │   │   ├── alumnos.ts             # Servicio de alumnos

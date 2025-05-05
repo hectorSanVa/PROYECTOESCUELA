@@ -11,6 +11,27 @@ const CursosDocente: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const cargarCursos = async () => {
+      try {
+        setLoading(true);
+        const response = await getCursos();
+        
+        // Asegúrate de que response.data sea un array
+        if (response && Array.isArray(response.data)) {
+          setCursos(response.data);
+        } else {
+          setCursos([]); // Si no es array, establece array vacío
+          console.error('La respuesta no contiene un array de cursos:', response);
+        }
+      } catch (err) {
+        setError('Error al cargar los cursos');
+        setCursos([]); // En caso de error, establece array vacío
+        console.error('Error fetching cursos:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     cargarCursos();
   }, []);
 

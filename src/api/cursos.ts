@@ -1,5 +1,4 @@
 // Función para crear un curso
-// Función para crear un curso - CORREGIDA
 export async function createCurso({ nombre, descripcion }: { nombre: string; descripcion: string }) {
   const token = localStorage.getItem('supabase_token');
   if (!token) {
@@ -24,26 +23,42 @@ export async function createCurso({ nombre, descripcion }: { nombre: string; des
 }
 
 // Obtener todos los cursos - CORREGIDA
+// src/api/cursos.ts
 export async function getCursos() {
   const token = localStorage.getItem('supabase_token');
   if (!token) {
-    throw new Error('No se encontró el token de autenticación');
+    console.error('No hay token de autenticación');
+    return { data: [] };
   }
 
-  const response = await fetch('http://localhost:3001/api/cursos', {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+  try {
+    const response = await fetch('http://localhost:3001/api/cursos', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
-  });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || 'Error al obtener los cursos');
+    const result = await response.json();
+    
+    // Asegúrate de que la respuesta tenga la estructura correcta
+    return {
+      data: Array.isArray(result.data) ? result.data : [],
+      success: result.success,
+      error: result.error
+    };
+    
+  } catch (error) {
+    console.error('Error en getCursos:', error);
+    return { 
+      data: [],
+      error: error instanceof Error ? error.message : 'Error desconocido'
+    };
   }
-  return await response.json();
 }
-
 // Eliminar un curso
 export async function deleteCurso(id: string) {
   const token = localStorage.getItem('supabase_token'); // Cambiado a supabase_token

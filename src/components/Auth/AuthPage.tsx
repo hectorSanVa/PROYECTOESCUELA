@@ -9,16 +9,23 @@ const AuthPage: React.FC = () => {
   const signInWithGoogle = async () => {
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-    if (error) {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin
+        }
+      });
+      
+      if (error) throw error;
+    } catch (error) {
       setError('Error al iniciar sesión con Google');
       console.error(error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
-
+  
   return (
     <div className="auth-page">
       <div className="auth-container">
