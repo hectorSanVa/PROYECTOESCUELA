@@ -1,7 +1,7 @@
 // src/controllers/profesores.controller.ts
 import { Request, Response } from 'express';
 import { supabase } from '../lib/supabase';
-import { Profesor, ProfesorCreate, ProfesorUpdate } from '../models/Profesor';
+import { ProfesorCreate, ProfesorUpdate } from '../models/Profesor';
 
 export const getAllProfesores = async (req: Request, res: Response) => {
   try {

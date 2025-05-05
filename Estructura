@@ -9,6 +9,8 @@ PROYECTOESCUELA/
 │   ├── manifest.json
 │   ├── robots.txt
 ├── src/
+│   ├── api/                    # API de la aplicación
+│   │   └── Cursos.ts/               # API de cursos
 │   ├── Components/
 │   │   ├── Auth/                  # Componentes de autenticación
 │   │   │   ├── AuthPage.css
@@ -18,6 +20,9 @@ PROYECTOESCUELA/
 │   │   │   ├── RegisterForm.css
 │   │   │   └── RegisterForm.tsx
 │   │   ├── Dashboard/             # Componentes del dashboard
+│   │   │   ├── CursosDocente.tsx       
+│   │   │   ├── DocenteLayout.tsx
+│   │   │   ├── DocenteLayout.css
 │   │   │   ├── Dashboard.css
 │   │   │   ├── StudentDashboard.css
 │   │   │   ├── StudentDashboard.tsx
@@ -27,10 +32,22 @@ PROYECTOESCUELA/
 │   │   ├── Home.css
 │   │   ├── LogoutButton.css
 │   │   └── LogoutButton.tsx
+│   ├── config/                    # Configuración de la aplicación
+│   │   └── api.ts                 # Configuración de la API 
 │   ├── Context/                   # Contextos de la aplicación
 │   │   └── UserContext.tsx        # Contexto de usuario
 │   ├── firebase/                  # Configuración de Firebase
 │   │   └── config.ts
+│   ├── Services/                  # Servicios de la aplicación
+│   │   ├── actividades.ts         # Servicio de actividades
+│   │   ├── alumnos.ts             # Servicio de alumnos
+│   │   ├── api.ts                 # Servicio de api
+│   │   ├── cursos.ts              # Servicio de cursos
+│   │   ├── ia.ts                  # Servicio de IA
+│   │   ├── lecciones.ts           # Servicio de lecciones
+│   │   ├── profesores.tsx         # Servicio de profesores
+│   │   ├── progreso.tsx           # Servicio de progreso
+│   │   └── recompensa.tsx         # Servicio de recompensa 
 │   ├── app.css                    # Estilos globales
 │   ├── App.test.txt
 │   ├── app.tsx                    # Componente principal de la aplicación

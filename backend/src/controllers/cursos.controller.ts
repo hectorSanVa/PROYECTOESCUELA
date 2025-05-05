@@ -1,7 +1,7 @@
 // src/controllers/cursos.controller.ts
 import { Request, Response } from 'express';
 import { supabase } from '../lib/supabase';
-import { Curso, CursoCreate, CursoUpdate } from '../models/Curso';
+import { CursoCreate, CursoUpdate } from '../models/Curso';
 
 export const getAllCursos = async (req: Request, res: Response) => {
   try {
