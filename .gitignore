@@ -8,7 +8,6 @@
 
 # ==== Backend (Node.js/TypeScript) ====
 # Entorno y compilación
-/backend/.env
 /backend/dist/
 /backend/coverage/
 /backend/*.log
