@@ -1,0 +1,97 @@
+.respuestasia-panel {
+  background: #262347;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.respuestasia-title {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.respuestasia-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #211e3a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.respuestasia-table th, .respuestasia-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.respuestasia-table th {
+  background: #2d2959;
+  color: #bdb7e3;
+  font-weight: 600;
+  border-bottom: 2px solid #3a3660;
+}
+
+.respuestasia-table td {
+  color: #e0def7;
+  border-bottom: 1px solid #28244a;
+}
+
+.respuestasia-table tr:last-child td {
+  border-bottom: none;
+}
+
+.estado {
+  padding: 0.3rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+.estado.aprobada {
+  background: #3edfa0;
+  color: #222;
+}
+.estado.pendiente {
+  background: #f1c40f;
+  color: #222;
+}
+.estado.rechazada {
+  background: #ff6b81;
+  color: #fff;
+}
+
+.respuestasia-btn {
+  margin-right: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.respuestasia-btn.ver {
+  background: #a084e8;
+  color: #fff;
+}
+.respuestasia-btn.ver:hover {
+  background: #7c5fd3;
+}
+
+.respuestasia-btn.aprobar {
+  background: #3edfa0;
+  color: #222;
+}
+.respuestasia-btn.aprobar:hover {
+  background: #2bbd7e;
+}
+
+.respuestasia-btn.rechazar {
+  background: #ff6b81;
+  color: #fff;
+}
+.respuestasia-btn.rechazar:hover {
+  background: #d94f5c;
+} 

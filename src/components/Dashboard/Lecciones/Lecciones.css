@@ -1,0 +1,197 @@
+.lecciones-panel {
+  background: #262347;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.lecciones-title {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.lecciones-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #211e3a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.lecciones-table th, .lecciones-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.lecciones-table th {
+  background: #2d2959;
+  color: #bdb7e3;
+  font-weight: 600;
+  border-bottom: 2px solid #3a3660;
+}
+
+.lecciones-table td {
+  color: #e0def7;
+  border-bottom: 1px solid #28244a;
+}
+
+.lecciones-table tr:last-child td {
+  border-bottom: none;
+}
+
+.leccion-btn {
+  margin-right: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.leccion-btn.editar {
+  background: #6c63ff;
+  color: #fff;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.leccion-btn.editar:hover {
+  background: #554fd8;
+}
+
+.leccion-btn.eliminar {
+  background: #ff6b81;
+  color: #fff;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.leccion-btn.eliminar:hover {
+  background: #d94f5c;
+}
+
+.leccion-btn.ver {
+  background: #3edfa0;
+  color: #222;
+}
+.leccion-btn.ver:hover {
+  background: #2bbd7e;
+}
+
+.leccion-btn.guardar {
+  background: #3edfa0;
+  color: #222;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.leccion-btn.guardar:hover {
+  background: #2bbd7e;
+}
+
+.leccion-btn.cancelar {
+  background: #bdb7e3;
+  color: #262347;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.leccion-btn.cancelar:hover {
+  background: #a084e8;
+  color: #fff;
+}
+
+.nueva-leccion-btn {
+  background: #a084e8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+.nueva-leccion-btn:hover {
+  background: #7c5fd3;
+}
+
+.leccion-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.leccion-input {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #3a3660;
+  background: #211e3a;
+  color: #fff;
+  font-size: 1rem;
+  min-width: 180px;
+  flex: 1;
+  transition: border 0.2s;
+}
+.leccion-input:focus {
+  border: 1.5px solid #a084e8;
+  outline: none;
+}
+.leccion-btn.crear {
+  background: #a084e8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.leccion-btn.crear:hover {
+  background: #7c5fd3;
+}
+.success-message {
+  background: #3edfa0;
+  color: #222;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+.error-message {
+  background: #ff6b81;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+.no-lecciones {
+  color: #bdb7e3;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+} 

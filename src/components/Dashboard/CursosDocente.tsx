@@ -15,23 +15,18 @@ const CursosDocente: React.FC = () => {
       try {
         setLoading(true);
         const response = await getCursos();
-        
-        // Asegúrate de que response.data sea un array
         if (response && Array.isArray(response.data)) {
           setCursos(response.data);
         } else {
-          setCursos([]); // Si no es array, establece array vacío
-          console.error('La respuesta no contiene un array de cursos:', response);
+          setCursos([]);
         }
       } catch (err) {
         setError('Error al cargar los cursos');
-        setCursos([]); // En caso de error, establece array vacío
-        console.error('Error fetching cursos:', err);
+        setCursos([]);
       } finally {
         setLoading(false);
       }
     };
-
     cargarCursos();
   }, []);
 
@@ -74,19 +69,29 @@ const CursosDocente: React.FC = () => {
     setError(null);
     setSuccess(null);
     try {
-      await deleteCurso(id);
-      setSuccess('Curso eliminado');
-      cargarCursos();
+      const res = await deleteCurso(id);
+      if (res && (res.success || res.data || res.message === 'Curso eliminado')) {
+        setSuccess('Curso eliminado exitosamente');
+        setTimeout(() => {
+          cargarCursos();
+        }, 1200);
+      } else {
+        setError(res?.error || 'No se pudo eliminar el curso');
+      }
     } catch (e) {
-      setError('No se pudo eliminar el curso');
+      if (e instanceof Error) {
+        setError(e.message || 'No se pudo eliminar el curso');
+      } else {
+        setError('No se pudo eliminar el curso');
+      }
     }
     setLoading(false);
   };
 
   return (
-    <div>
-      <h2>Mis Cursos</h2>
-      <div className="dashboard-actions">
+    <div className="cursosdocente-panel">
+      <h2 className="cursosdocente-title">Mis Cursos</h2>
+      <div className="cursosdocente-form">
         <input
           value={nuevoCurso}
           onChange={e => setNuevoCurso(e.target.value)}
@@ -102,25 +107,34 @@ const CursosDocente: React.FC = () => {
           disabled={loading}
         />
         <button className="action-button primary" onClick={handleCrearCurso} disabled={loading}>
-          Crear nuevo curso
+          + Crear nuevo curso
         </button>
       </div>
       {success && <div className="success-message">{success}</div>}
       {error && <div className="error-message">{error}</div>}
-      <div className="cursos-list">
+      <div className="cursosdocente-grid">
         {loading ? (
-          <div>Cargando cursos...</div>
+          <div className="loading">Cargando cursos...</div>
+        ) : cursos.length === 0 ? (
+          <div className="no-cursos">No tienes cursos registrados.</div>
         ) : (
-          <ul>
-            {cursos.map((curso: any) => (
-              <li key={curso.id} className="curso-item">
-                {curso.nombre}
+          cursos.map((curso: any) => (
+            <div key={curso.id} className="curso-card-docente">
+              <div className="curso-card-header">
+                <div className="curso-card-title">{curso.nombre}</div>
+                <span className="curso-card-badge">{curso.lecciones?.length || 0} lecciones</span>
+              </div>
+              <div className="curso-card-desc">{curso.descripcion || 'Sin descripción'}</div>
+              <div className="curso-card-footer">
+                <button className="action-button edit" disabled={loading}>
+                  Editar
+                </button>
                 <button className="action-button delete" onClick={() => handleEliminarCurso(curso.id)} disabled={loading}>
                   Eliminar
                 </button>
-              </li>
-            ))}
-          </ul>
+              </div>
+            </div>
+          ))
         )}
       </div>
     </div>

@@ -1,0 +1,81 @@
+.progreso-panel {
+  background: #262347;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.progreso-title {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.progreso-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #211e3a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.progreso-table th, .progreso-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.progreso-table th {
+  background: #2d2959;
+  color: #bdb7e3;
+  font-weight: 600;
+  border-bottom: 2px solid #3a3660;
+}
+
+.progreso-table td {
+  color: #e0def7;
+  border-bottom: 1px solid #28244a;
+}
+
+.progreso-table tr:last-child td {
+  border-bottom: none;
+}
+
+.barra-progreso {
+  background: #3a3660;
+  border-radius: 8px;
+  width: 120px;
+  height: 16px;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.progreso-fill {
+  background: #3edfa0;
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+  transition: width 0.4s;
+}
+
+.progreso-porcentaje {
+  color: #bdb7e3;
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+}
+
+.progreso-btn {
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: #a084e8;
+  color: #fff;
+  transition: background 0.2s;
+}
+.progreso-btn.ver:hover {
+  background: #7c5fd3;
+} 

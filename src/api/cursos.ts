@@ -71,5 +71,10 @@ export async function deleteCurso(id: string) {
   if (!response.ok) {
     throw new Error('Error al eliminar el curso');
   }
-  return response.json();
+  // Si la respuesta está vacía, retorna éxito
+  const text = await response.text();
+  if (!text) {
+    return { success: true };
+  }
+  return JSON.parse(text);
 }

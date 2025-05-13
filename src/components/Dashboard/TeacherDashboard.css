@@ -362,4 +362,116 @@ h2 {
   -webkit-text-fill-color: transparent;
   position: relative;
   display: inline-block;
+}
+
+.cursosdocente-panel {
+  background: #262347;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.cursosdocente-title {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+.cursosdocente-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.input-curso {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #3a3660;
+  background: #211e3a;
+  color: #fff;
+  font-size: 1rem;
+  min-width: 200px;
+  flex: 1;
+  transition: border 0.2s;
+}
+.input-curso:focus {
+  border: 1.5px solid #a084e8;
+  outline: none;
+}
+.cursosdocente-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+}
+.curso-card-docente {
+  background: #211e3a;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.curso-card-docente:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(160,132,232,0.15);
+}
+.curso-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+.curso-card-title {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.curso-card-badge {
+  background: #3edfa0;
+  color: #222;
+  border-radius: 12px;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.curso-card-desc {
+  color: #bdb7e3;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+.curso-card-footer {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+.success-message {
+  background: #3edfa0;
+  color: #222;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+.error-message {
+  background: #ff6b81;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+.no-cursos {
+  color: #bdb7e3;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+}
+@media (max-width: 700px) {
+  .cursosdocente-form {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
 } 

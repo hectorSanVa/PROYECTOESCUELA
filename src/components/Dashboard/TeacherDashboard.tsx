@@ -5,13 +5,19 @@ import './TeacherDashboard.css';
 import { supabase } from '../../supabaseClient';
 import DocenteLayout from './DocenteLayout';
 import CursosDocente from './CursosDocente';
+import Lecciones from './Lecciones/Lecciones';
+import Actividades from './Actividades/Actividades';
+import Progreso from './Progreso/Progreso';
+import Recompensas from './Recompensas/Recompensas';
+import RespuestasIA from './RespuestasIA/RespuestasIA';
+import Estadisticas from './Estadisticas/Estadisticas';
 
-const LeccionesDocente = () => <div>Lecciones (próximamente)</div>;
-const ActividadesDocente = () => <div>Actividades (próximamente)</div>;
-const ProgresoDocente = () => <div>Progreso de alumnos (próximamente)</div>;
-const RecompensasDocente = () => <div>Recompensas (próximamente)</div>;
-const RespuestasIADocente = () => <div>Respuestas IA (próximamente)</div>;
-const EstadisticasDocente = () => <div>Estadísticas (próximamente)</div>;
+const LeccionesDocente = () => <Lecciones />;
+const ActividadesDocente = () => <Actividades />;
+const ProgresoDocente = () => <Progreso />;
+const RecompensasDocente = () => <Recompensas />;
+const RespuestasIADocente = () => <RespuestasIA />;
+const EstadisticasDocente = () => <Estadisticas />;
 
 const SECCIONES = [
   'cursos',

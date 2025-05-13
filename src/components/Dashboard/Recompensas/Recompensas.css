@@ -1,0 +1,174 @@
+.recompensas-panel {
+  background: #262347;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.recompensas-title {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.recompensas-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #211e3a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.recompensas-table th, .recompensas-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.recompensas-table th {
+  background: #2d2959;
+  color: #bdb7e3;
+  font-weight: 600;
+  border-bottom: 2px solid #3a3660;
+}
+
+.recompensas-table td {
+  color: #e0def7;
+  border-bottom: 1px solid #28244a;
+}
+
+.recompensas-table tr:last-child td {
+  border-bottom: none;
+}
+
+.recompensa-icono {
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+}
+
+.recompensa-btn {
+  margin-right: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recompensa-btn.ver {
+  background: #3edfa0;
+  color: #222;
+}
+.recompensa-btn.ver:hover {
+  background: #2bbd7e;
+}
+
+.recompensa-btn.eliminar {
+  background: #ff6b81;
+  color: #fff;
+}
+.recompensa-btn.eliminar:hover {
+  background: #d94f5c;
+}
+
+.recompensa-btn.asignar {
+  margin-right: 0.5rem;
+}
+
+.nueva-recompensa-btn {
+  background: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+.nueva-recompensa-btn:hover {
+  background: #554fd8;
+}
+
+/* Modal para nueva recompensa */
+.modal-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 27, 60, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal {
+  background: #211e3a;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  padding: 2rem 2.2rem 1.5rem 2.2rem;
+  min-width: 320px;
+  max-width: 95vw;
+  color: #e0def7;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.3s;
+}
+.modal h3 {
+  color: #a084e8;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #bdb7e3;
+  font-size: 1rem;
+}
+.modal-form select, .modal-form input {
+  margin-top: 0.3rem;
+  background: #28244a;
+  color: #e0def7;
+  border: 1.5px solid #3a3660;
+  border-radius: 7px;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+.modal-form select:focus, .modal-form input:focus {
+  border: 1.5px solid #a084e8;
+  outline: none;
+}
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+.modal-actions button {
+  background: #a084e8;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.6rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-actions button[type="button"] {
+  background: #3edfa0;
+  color: #222;
+}
+.modal-actions button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+} 
