@@ -16,7 +16,6 @@ const AuthPage: React.FC = () => {
           redirectTo: window.location.origin
         }
       });
-      
       if (error) throw error;
     } catch (error) {
       setError('Error al iniciar sesión con Google');
@@ -25,7 +24,7 @@ const AuthPage: React.FC = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="auth-page">
       <div className="auth-container">
@@ -34,12 +33,10 @@ const AuthPage: React.FC = () => {
             <img src="/logo.png" alt="EduBot" className="auth-logo" />
             <h1>EduBot</h1>
           </div>
-          
           <div className="auth-welcome">
             <h2>¡Bienvenido a tu plataforma educativa!</h2>
             <p>Aprende matemáticas y español de forma interactiva y personalizada</p>
           </div>
-
           <div className="auth-options">
             <button 
               onClick={signInWithGoogle} 
@@ -51,13 +48,12 @@ const AuthPage: React.FC = () => {
               ) : (
                 <>
                   <img src="/google-icon.svg" alt="Google" className="google-icon" />
-                  Continuar con Google
+                  Iniciar sesión con Google
                 </>
               )}
             </button>
             {error && <p className="auth-error">{error}</p>}
           </div>
-
           <div className="auth-features">
             <h3>Lo que encontrarás:</h3>
             <div className="features-grid">
@@ -79,7 +75,6 @@ const AuthPage: React.FC = () => {
               </div>
             </div>
           </div>
-
           <div className="auth-info">
             <p className="auth-note">
               Profesores: Usar correo institucional @unach.mx

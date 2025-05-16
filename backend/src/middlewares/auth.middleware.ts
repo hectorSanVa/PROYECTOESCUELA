@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase';
 declare global {
   namespace Express {
     interface Request {
-      user?: any;
+      user: any;
     }
   }
 }
@@ -23,7 +23,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
     const token = authHeader.split(' ')[1];
     
-    // Verificación única con Supabase
+    // Verificación con Supabase
     const { data: { user }, error } = await supabase.auth.getUser(token);
     
     if (error || !user) {
@@ -33,7 +33,26 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
       });
     }
 
-    req.user = user;
+    // Obtener el rol del usuario
+    const { data: usuario, error: userError } = await supabase
+      .from('usuarios')
+      .select('id, rol')
+      .eq('id', user.id)
+      .single();
+
+    if (userError || !usuario) {
+      return res.status(401).json({ 
+        error: 'User not found',
+        shouldRedirect: true
+      });
+    }
+
+    // Adjuntar usuario y rol a la request
+    req.user = {
+      ...user,
+      rol: usuario.rol
+    };
+
     next();
   } catch (error) {
     console.error('Authentication error:', error);
@@ -46,35 +65,19 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
 export const authorize = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user) return res.status(401).json({ error: 'Unauthenticated' });
-
     try {
-      // Obtener usuario con su rol
-      const { data: usuario, error } = await supabase
-        .from('usuarios')
-        .select('id, rol')
-        .eq('id', req.user.id)
-        .single();
-
-      if (error || !usuario) throw error || new Error('User not found');
-
-      // Verificar si es profesor y obtener datos adicionales
-      if (usuario.rol === 'profesor') {
-        const { data: profesor } = await supabase
-          .from('profesores')
-          .select('id, especialidad')
-          .eq('usuario_id', usuario.id)
-          .single();
-
-        req.user.profesor = profesor; // Adjunta datos de profesor
+      if (!req.user) {
+        return res.status(401).json({ error: 'Unauthenticated' });
       }
 
       // Verificación de rol
-      if (!roles.includes(usuario.rol)) {
+      if (!roles.includes(req.user.rol)) {
+        console.log('Rol del usuario:', req.user.rol);
+        console.log('Roles permitidos:', roles);
         return res.status(403).json({ 
           error: 'Unauthorized role',
           requiredRoles: roles,
-          userRole: usuario.rol
+          userRole: req.user.rol
         });
       }
 

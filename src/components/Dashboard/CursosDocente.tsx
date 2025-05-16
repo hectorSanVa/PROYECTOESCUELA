@@ -2,8 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { getCursos, createCurso, deleteCurso } from '../../api/cursos';
 import './TeacherDashboard.css';
 
+interface Curso {
+  id: number;
+  nombre: string;
+  descripcion?: string | null;
+  profesor_id: string | null;
+  materia: 'español' | 'matematicas' | null;
+  icono_url?: string | null;
+  lecciones?: any[];
+}
+
 const CursosDocente: React.FC = () => {
-  const [cursos, setCursos] = useState<any[]>([]);
+  const [cursos, setCursos] = useState<Curso[]>([]);
   const [nuevoCurso, setNuevoCurso] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [loading, setLoading] = useState(false);
@@ -36,6 +46,7 @@ const CursosDocente: React.FC = () => {
     setSuccess(null);
     try {
       const res = await getCursos();
+      console.log('Respuesta de cursos:', res.data);
       setCursos(res.data);
     } catch (e) {
       setCursos([]);
@@ -118,7 +129,7 @@ const CursosDocente: React.FC = () => {
         ) : cursos.length === 0 ? (
           <div className="no-cursos">No tienes cursos registrados.</div>
         ) : (
-          cursos.map((curso: any) => (
+          cursos.map((curso) => (
             <div key={curso.id} className="curso-card-docente">
               <div className="curso-card-header">
                 <div className="curso-card-title">{curso.nombre}</div>
@@ -129,7 +140,7 @@ const CursosDocente: React.FC = () => {
                 <button className="action-button edit" disabled={loading}>
                   Editar
                 </button>
-                <button className="action-button delete" onClick={() => handleEliminarCurso(curso.id)} disabled={loading}>
+                <button className="action-button delete" onClick={() => handleEliminarCurso(curso.id.toString())} disabled={loading}>
                   Eliminar
                 </button>
               </div>

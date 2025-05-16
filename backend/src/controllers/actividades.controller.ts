@@ -20,7 +20,7 @@ export const getAllActividades = async (req: Request, res: Response) => {
     const { data, error } = await query;
 
     if (error) throw error;
-    res.json(data);
+    res.json({ data });
   } catch (error: unknown) {
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });

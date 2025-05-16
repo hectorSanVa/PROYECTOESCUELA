@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 import './RegisterForm.css';
 
@@ -12,9 +12,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
     confirmPassword: '',
     fullName: '',
     role: 'alumno',
+    nivel_educativo: '',
+    especialidad: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Cierra sesión automáticamente al entrar al formulario
+    supabase.auth.signOut();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -71,10 +78,29 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
             id: data.user.id,
             email: formData.email,
             rol: formData.role,
-            // otros campos según tu esquema
+            nombre: formData.fullName,
+            nivel_educativo: formData.role === 'alumno' ? formData.nivel_educativo : null,
+            especialidad: formData.role === 'profesor' ? formData.especialidad : null,
           });
 
         if (profileError) throw profileError;
+
+        // Lógica para crear en alumnos o profesores
+        if (formData.role === 'alumno') {
+          await supabase.from('alumnos').insert({
+            id: data.user.id,
+            nombre: formData.fullName,
+            nivel_educativo: formData.nivel_educativo,
+            puntos_acumulados: 0
+          });
+        }
+        if (formData.role === 'profesor') {
+          await supabase.from('profesores').insert({
+            id: data.user.id,
+            nombre: formData.fullName,
+            especialidad: formData.especialidad
+          });
+        }
       }
       onClose();
     } catch (error) {
@@ -135,9 +161,42 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
               onChange={handleChange}
             >
               <option value="alumno">Alumno</option>
-              <option value="docente">Docente</option>
+              <option value="profesor">Profesor</option>
             </select>
           </div>
+
+          {formData.role === 'alumno' && (
+            <div className="form-group">
+              <label htmlFor="nivel_educativo">Nivel educativo</label>
+              <select
+                id="nivel_educativo"
+                name="nivel_educativo"
+                value={formData.nivel_educativo}
+                onChange={handleChange}
+              >
+                <option value="">Selecciona nivel educativo</option>
+                <option value="secundaria_1">Secundaria 1</option>
+                <option value="secundaria_2">Secundaria 2</option>
+                <option value="secundaria_3">Secundaria 3</option>
+              </select>
+            </div>
+          )}
+
+          {formData.role === 'profesor' && (
+            <div className="form-group">
+              <label htmlFor="especialidad">Especialidad</label>
+              <select
+                id="especialidad"
+                name="especialidad"
+                value={formData.especialidad}
+                onChange={handleChange}
+              >
+                <option value="">Selecciona especialidad</option>
+                <option value="español">Español</option>
+                <option value="matematicas">Matemáticas</option>
+              </select>
+            </div>
+          )}
 
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>

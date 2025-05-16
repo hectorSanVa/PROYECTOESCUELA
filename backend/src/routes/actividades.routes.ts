@@ -12,7 +12,7 @@ import { authenticate, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
-router.get('/', authenticate, getAllActividades);
+router.get('/', authenticate, authorize(['admin', 'profesor', 'alumno']), getAllActividades);
 router.get('/:id', authenticate, getActividadById);
 router.get('/leccion/:leccionId', authenticate, getActividadesByLeccion);
 router.post('/', authenticate, authorize(['admin', 'profesor']), createActividad);

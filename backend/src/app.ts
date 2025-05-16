@@ -12,7 +12,6 @@ import progresoRoutes from './routes/progreso.routes';
 import recompensasRoutes from './routes/recompensas.routes';
 import respuestasIARoutes from './routes/respuestasIA.routes';
 import { errorHandler, notFound } from './middlewares/errorHandler';
-import { authenticate, authorize } from './middlewares/auth.middleware';
 
 const app = express();
 
@@ -28,23 +27,20 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 
-// 2. Rutas públicas (sin autenticación)
+// 2. Rutas públicas
 app.use('/api/auth', authRoutes);
 
-// 3. Middleware de autenticación global para todas las rutas API
-app.use('/api', authenticate);
+// 3. Rutas protegidas
+app.use('/api/alumnos', alumnosRoutes);
+app.use('/api/profesores', profesoresRoutes);
+app.use('/api/cursos', cursosRoutes);
+app.use('/api/lecciones', leccionesRoutes);
+app.use('/api/actividades', actividadesRoutes);
+app.use('/api/progreso', progresoRoutes);
+app.use('/api/recompensas', recompensasRoutes);
+app.use('/api/respuestas-ia', respuestasIARoutes);
 
-// 4. Rutas protegidas con autorización específica
-app.use('/api/alumnos', authorize(['admin']), alumnosRoutes);
-app.use('/api/profesores', authorize(['admin']), profesoresRoutes);
-app.use('/api/cursos', authorize(['admin', 'profesor']), cursosRoutes);
-app.use('/api/lecciones', authorize(['admin', 'profesor']), leccionesRoutes);
-app.use('/api/actividades', authorize(['admin', 'profesor']), actividadesRoutes);
-app.use('/api/progreso', authorize(['admin', 'profesor', 'alumno']), progresoRoutes);
-app.use('/api/recompensas', authorize(['admin', 'profesor']), recompensasRoutes);
-app.use('/api/respuestas-ia', authorize(['admin', 'profesor', 'alumno']), respuestasIARoutes);
-
-// 5. Manejo de errores
+// 4. Middlewares de manejo de errores
 app.use(notFound);
 app.use(errorHandler);
 
